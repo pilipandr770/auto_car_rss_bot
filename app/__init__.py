@@ -2,6 +2,8 @@ from flask import Flask
 from .config import get_config
 from .extensions import db
 from .routes import main_bp
+from .models import metadata
+from sqlalchemy import text
 
 
 def create_app(config_name: str | None = None) -> Flask:
@@ -26,3 +28,17 @@ def create_app(config_name: str | None = None) -> Flask:
 
 # Створюємо екземпляр додатку для Gunicorn
 app = create_app()
+
+# Ініціалізація бази даних при старті додатку
+with app.app_context():
+    # Створюємо схему, якщо не існує
+    schema = app.config.get('DB_SCHEMA', 'auto_car_bot')
+    db.session.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema}"))
+    db.session.commit()
+
+    # Встановлюємо схему для metadata
+    metadata.schema = schema
+
+    # Створюємо таблиці в схемі
+    db.create_all()
+    print(f"Database schema '{schema}' and tables initialized.")
