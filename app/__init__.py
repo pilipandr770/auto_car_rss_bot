@@ -36,6 +36,26 @@ with app.app_context():
     db.session.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema}"))
     db.session.commit()
 
-    # Створюємо таблиці в схемі
-    db.create_all()
-    print(f"Database schema '{schema}' and tables initialized.")
+    # Створюємо таблицю articles в схемі
+    create_table_sql = f"""
+    CREATE TABLE IF NOT EXISTS {schema}.articles (
+        id SERIAL PRIMARY KEY,
+        source VARCHAR(255) NOT NULL,
+        rss_guid VARCHAR(512) UNIQUE,
+        title VARCHAR(512) NOT NULL,
+        url VARCHAR(1024) NOT NULL,
+        image_url VARCHAR(1024),
+        summary TEXT,
+        generated_content TEXT,
+        language VARCHAR(8) DEFAULT 'uk',
+        published_at TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        posted_to_telegram BOOLEAN DEFAULT FALSE,
+        posted_at TIMESTAMP
+    )
+    """
+    db.session.execute(text(create_table_sql))
+    db.session.commit()
+
+    print(f"Database schema '{schema}' and articles table created.")
