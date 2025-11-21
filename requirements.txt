@@ -7,3 +7,4 @@ feedparser           # для парсингу RSS
 requests
 openai
 python-dateutil
+gunicorn
