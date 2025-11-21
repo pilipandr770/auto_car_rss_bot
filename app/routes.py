@@ -19,6 +19,14 @@ def index():
     )
 
 
+@main_bp.route("/health")
+def health():
+    """
+    Альтернативний healthcheck endpoint.
+    """
+    return jsonify({"status": "healthy"})
+
+
 @main_bp.route("/api/articles")
 def list_articles():
     """
