@@ -9,6 +9,7 @@ class Article(db.Model):
     Стаття/новина, яку ми витягнули з RSS та/або вже опублікували в Telegram.
     """
     __tablename__ = "articles"
+    __table_args__ = {"schema": "auto_car_bot"}
     metadata = metadata
 
     id = db.Column(db.Integer, primary_key=True)

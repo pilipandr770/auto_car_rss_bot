@@ -36,9 +36,6 @@ with app.app_context():
     db.session.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema}"))
     db.session.commit()
 
-    # Встановлюємо схему для metadata
-    metadata.schema = schema
-
     # Створюємо таблиці в схемі
     db.create_all()
     print(f"Database schema '{schema}' and tables initialized.")
