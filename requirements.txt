@@ -1,0 +1,9 @@
+flask
+python-dotenv
+SQLAlchemy
+psycopg2-binary      # якщо будеш працювати з PostgreSQL
+python-telegram-bot  # для надсилання повідомлень у канал
+feedparser           # для парсингу RSS
+requests
+openai
+python-dateutil
