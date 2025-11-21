@@ -22,3 +22,7 @@ def create_app(config_name: str | None = None) -> Flask:
 
     # Можна додати healthcheck route тут або в routes.py
     return app
+
+
+# Створюємо екземпляр додатку для Gunicorn
+app = create_app()
